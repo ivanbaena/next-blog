@@ -1,7 +1,4 @@
-import { Fragment } from 'react';
-
-import Hero from '../components/hero';
-import FeaturedPosts from '../components/featured-posts';
+import AllPosts from '../../components/posts/all-posts';
 
 const DUMMY_POSTS = [
   {
@@ -37,12 +34,10 @@ const DUMMY_POSTS = [
     date: '2022-02-10',
   },
 ];
-
-export default function Home() {
+export default function AllPostsPage({}) {
   return (
-    <Fragment>
-      <Hero />
-      <FeaturedPosts posts={DUMMY_POSTS} />
-    </Fragment>
+    <div>
+      <AllPosts posts={DUMMY_POSTS} />
+    </div>
   );
 }
