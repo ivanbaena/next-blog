@@ -1,21 +1,66 @@
+import ReactMarkdown from 'react-markdown';
 import PostHeader from './post-header';
+import Image from 'next/image';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-const DUMMY_POST = {
-  title: 'Getting Started with NextJS',
-  image: 'getting-started-with-nextjs.jpeg',
-  slug: 'getting-started-with-nextjs',
-  content: '# This is a first post',
-  date: '2022-02-10',
-};
+const PostDetail = ({ post }: any) => {
+  const imagePath = `/images/posts/${post.slug}/${post.image}`;
 
-const PostDetail = () => {
-  const imagePath = `/images/posts/${DUMMY_POST.slug}/${DUMMY_POST.image}`;
+  const customRenderers = {
+    // img: (image: any) => {
+    //   return (
+    //       <Image
+    //         src={`/images/posts/${post.slug}/${image.src}`}
+    //         alt={image.alt}
+    //         width={600}
+    //         height={300}
+    //       />
+    //   );
+    // },
+    // eslint-disable-next-line react/display-name
+    p: (paragraph: any) => {
+      const { node } = paragraph;
+      if (node.children[0].tagName === 'img') {
+        const image = node.children[0].properties;
+
+        return (
+          <div className="w-full flex justify-center">
+            <Image
+              src={`/images/posts/${post.slug}/${image.src}`}
+              alt={image.alt}
+              width={600}
+              height={300}
+            />
+          </div>
+        );
+      }
+
+      return <p>{paragraph.children}</p>;
+    },
+
+    // eslint-disable-next-line react/display-name
+    code: (code: any) => {
+      const {
+        node: { children },
+      } = code;
+      console.log('ibaena:code', code);
+
+      return (
+        <SyntaxHighlighter language={'javascript'} style={atomDark}>
+          {children[0].value}
+        </SyntaxHighlighter>
+      );
+    },
+  };
 
   return (
     <article className="bg-gray-400 pt-6 pb-4 min-h-screen">
       <div className="container mx-auto border rounded p-4 w-9/12 mx-auto bg-gray-100">
-        <PostHeader title={DUMMY_POST.title} image={imagePath} />
-        <div>{DUMMY_POST.content}</div>
+        <PostHeader title={post.title} image={imagePath} />
+        <ReactMarkdown components={customRenderers}>
+          {post.content}
+        </ReactMarkdown>
       </div>
     </article>
   );
