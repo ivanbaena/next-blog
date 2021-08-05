@@ -4,11 +4,15 @@ const Notification = ({ title, message, status }: any) => {
   let statusClasses = '';
 
   if (status === 'success') {
-    statusClasses = 'bg-green-900';
+    statusClasses = 'bg-green-500';
   }
 
   if (status === 'error') {
-    statusClasses = 'bg-red-900';
+    statusClasses = 'bg-red-500';
+  }
+
+  if (status === 'pending') {
+    statusClasses = 'bg-yellow-400';
   }
 
   return ReactDOM.createPortal(

@@ -1,1 +1,1 @@
-export const credentials = `mongodb+srv://blog-admin:N-wQMb5V@y!!EjB@cluster0.khci8.mongodb.net/next-blog?retryWrites=true&w=majority`;
+export const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.khci8.mongodb.net/${process.env.mongodb_database}?retryWrites=true&w=majority`;

@@ -61,7 +61,7 @@ const ContactForm = () => {
     notification = {
       status: 'pending',
       title: 'Sending message',
-      message: 'Your messafge is on its way!',
+      message: 'Your message is on its way!',
     };
   }
 

@@ -1,23 +1,18 @@
 import ReactMarkdown from 'react-markdown';
 import PostHeader from './post-header';
 import Image from 'next/image';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import atomDark from 'react-syntax-highlighter/dist/cjs/styles/prism/atom-dark';
+import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
+import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css';
+
+SyntaxHighlighter.registerLanguage('js', js);
+SyntaxHighlighter.registerLanguage('css', css);
 
 const PostDetail = ({ post }: any) => {
   const imagePath = `/images/posts/${post.slug}/${post.image}`;
 
   const customRenderers = {
-    // img: (image: any) => {
-    //   return (
-    //       <Image
-    //         src={`/images/posts/${post.slug}/${image.src}`}
-    //         alt={image.alt}
-    //         width={600}
-    //         height={300}
-    //       />
-    //   );
-    // },
     // eslint-disable-next-line react/display-name
     p: (paragraph: any) => {
       const { node } = paragraph;
@@ -44,7 +39,6 @@ const PostDetail = ({ post }: any) => {
       const {
         node: { children },
       } = code;
-      console.log('ibaena:code', code);
 
       return (
         <SyntaxHighlighter language={'javascript'} style={atomDark}>

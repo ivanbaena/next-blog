@@ -1,4 +1,5 @@
 import { MongoClient } from 'mongodb';
+import { connectionString } from '../../constants';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: any, res: any) => {
@@ -26,9 +27,7 @@ export default async (req: any, res: any) => {
 
     let client;
     try {
-      client = await MongoClient.connect(
-        'mongodb+srv://blog-admin:CPoxeVvGNaR38WoV@cluster0.khci8.mongodb.net/next-blog?retryWrites=true&w=majority',
-      );
+      client = await MongoClient.connect(connectionString);
     } catch (error) {
       res.status(500).json({ message: 'Could not connect to database.' });
       return;
